@@ -13,6 +13,11 @@ class CoinStatusList extends ConsumerWidget {
     return asyncValue.when(
       data: (data) {
         final coins = data["products"] as List<dynamic>;
+        if (coins.isEmpty) {
+          return Center(
+            child: Text("Nothing to show"),
+          );
+        }
         return ListView.builder(
           itemCount: coins.length,
           itemBuilder: (context, index) {
