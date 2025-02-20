@@ -23,8 +23,8 @@ class CoinbaseStatusRepo {
   }
 
   WebSocketChannel? _channel;
-  bool _isDisposed = false;
-  bool _isSubscribed = false;
+  bool isDisposed = false;
+  bool isSubscribed = false;
   final StreamController<Map<String, dynamic>> _streamController =
       StreamController<Map<String, dynamic>>();
 
@@ -37,7 +37,7 @@ class CoinbaseStatusRepo {
   }
 
   void _subscribeToStatus() {
-    if (_isDisposed) return;
+    if (isDisposed) return;
 
     final message = jsonEncode({
       "type": "subscribe",
@@ -46,12 +46,12 @@ class CoinbaseStatusRepo {
       ]
     });
 
-    _isSubscribed = true;
+    isSubscribed = true;
     _channel?.sink.add(message);
   }
 
   void _listenToStatus() {
-    if (_isDisposed) return;
+    if (isDisposed) return;
 
     _channel?.stream.listen(
       (data) {
